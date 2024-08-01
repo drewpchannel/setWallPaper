@@ -9,3 +9,7 @@ $SID = & ".\wps\setWallPaper-main\SIDget\GetSID.ps1"
 $filePath = Resolve-Path ".\wps\setWallPaper-main"
 
 Set-ItemProperty -Path "Registry::HKEY_USERS\$SID\Control Panel\Desktop" -Name WallPaper -value "$filePath\Treeline Wallpaper.png"
+cmd.exe "/c rundll32.exe user32.dll, UpdatePerUserSystemParameters 1, True"
+
+Remove-Item .\wps -Recurse
+Remove-Item .\wps.zip
