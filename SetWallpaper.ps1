@@ -1,3 +1,13 @@
+if (Test-Path -Path .\wps)
+{
+    Remove-Item -Path .\wps -Recurse
+}
+
+if (Test-Path -Path .\wps.zip)
+{
+    Remove-Item -Path .\wps.zip
+}
+
 #download wallpaper \ lock
 Invoke-WebRequest https://github.com/drewpchannel/setWallPaper/archive/refs/heads/main.zip -OutFile .\wps.zip
 Expand-Archive .\wps.zip
