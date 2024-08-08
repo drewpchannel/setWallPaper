@@ -1,23 +1,14 @@
-if (Test-Path -Path .\wps)
+#Setup Folder
+if (-not (Test-Path -Path C:\treeline_files))
 {
-    Remove-Item -Path .\wps -Recurse
-}
-
-if (Test-Path -Path .\wps.zip)
-{
-    Remove-Item -Path .\wps.zip
+    New-Item -Path C:\treeline_files -ItemType Directory | Out-Null
 }
 
 #download wallpaper \ lock
-Invoke-WebRequest https://github.com/drewpchannel/setWallPaper/archive/refs/heads/main.zip -OutFile .\wps.zip
-Expand-Archive .\wps.zip -Force
+Invoke-WebRequest https://github.com/drewpchannel/setWallPaper/archive/refs/heads/main.zip -OutFile c:\treeline_files\wps.zip
+Expand-Archive -Path c:\treeline_files\wps.zip -DestinationPath c:\treeline_files -Force
 
 #get machine username, user has to be logged in or the hive might not be mounted
-$SID = & ".\wps\setWallPaper-main\SIDget\GetSID.ps1"
+$SID = & "c:\treeline_files\setWallPaper-main\SIDget\GetSID.ps1"
 
-#change to path of downloaded wallpaper.
-$filePath = Resolve-Path ".\wps\setWallPaper-main"
-
-Set-ItemProperty -Path "Registry::HKEY_USERS\$SID\Control Panel\Desktop" -Name WallPaper -value "$filePath\Treeline Wallpaper.png"
-
-Remove-Item .\wps.zip
+Set-ItemProperty -Path "Registry::HKEY_USERS\$SID\Control Panel\Desktop" -Name WallPaper -value "c:\treeline_files\setWallPaper-main\Treeline Wallpaper.png"
